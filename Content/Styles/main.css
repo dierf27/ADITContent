@@ -1,0 +1,67 @@
+html *
+{
+   font-size: 15px;
+   color: #000;
+   font-family:'Roboto',sans-serif;
+}
+
+a:visited{
+    color: #83a215;
+}
+
+p{
+    color: #666;
+    font-size: 16px;
+}
+.green-canterbury{
+    color: #b5d449;
+}
+
+.small-font{
+    font-size: 12px;
+    display: inline-block;
+    font-weight: 700;
+    color: #ccc;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    width: 20px;
+    height: 23px;
+    text-align: center;
+}
+
+.small-font> a{
+    font-size: 12px;
+}
+
+.medium-font{
+    font-size: 16px;
+    display: inline-block;
+    font-weight: 700;
+    color: #ccc;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    width: 23px;
+    height: 28px;
+    text-align: center;
+}
+
+.medium-font> a{
+    font-size: 16px;
+}
+
+.big-font{
+    font-size: 24px;
+    display: inline-block;
+    font-weight: 700;
+    color: #ccc;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    width: 26px;
+    height: 36px;
+    text-align: center;
+}
+
+.big-font> a{
+    font-size: 24px;
+}
+
