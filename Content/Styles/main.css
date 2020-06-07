@@ -65,3 +65,24 @@ p{
     font-size: 24px;
 }
 
+.header-style{
+    width: 100%;
+    border: none;
+    height: 96px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.jsontext{
+    width: 70%;
+    height: 300px;
+}
+
+.rwtxt{
+    width: 100%;
+}
+
+.adv-style{
+    font-weight: 700;
+    font-size: 23px;
+}

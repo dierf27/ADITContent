@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>header</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://dierf27.github.io/ADITContent/Content/Styles/AwesomeFonts.css">
+    <link rel="stylesheet" href="https://dierf27.github.io/ADITContent/Content/Styles/main.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script>
+        $( document ).ready(function() {
+            $('#MenuLogo').click(OpenMenu);
+            $('#MenuHome').click(OpenMenu);
+            
+            $('#MenuView').click(OpenLink);
+    });
+
+    function OpenLink(){
+        window.top.location.href ='../Organise/OrganiseContent.html';        
+    }
+
+    function OpenMenu(){
+        window.top.location.href ='../../Index.html';        
+    }
+       
+    </script>
+</head>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#" id="MenuLogo">
+        <img src="https://dierf27.github.io/ADITContent/Content/images/logo.png" alt="Canterbury logo" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#" id="MenuHome">Home
+                    <span class="sr-only"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="MenuView">View</a>
+            </li>
+        </ul>
+        <div class="float-right">
+            <div class="small-font">
+                <a id="SmlFont" class="green-canterbury" href="#">A</a>
+            </div>
+            <div class="medium-font">
+                <a id="MdFont" class="green-canterbury" href="#">A</a>
+            </div>
+            <div class="big-font">
+                <a id="BgFont" class="green-canterbury" href="#">A</a>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
