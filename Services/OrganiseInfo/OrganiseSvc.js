@@ -2,19 +2,25 @@
 var jsChildren2 = [];
 
 $(document).ready(function () {
+    SetEvents();
     ReadFile();
     $('#trVw').on("changed.jstree", function (e, data) {
-        OpenTagPopUp(e,data);
-      });
+        OpenTagPopUp(e, data);
+    });
 });
 
-function OpenTagPopUp(e,data) {
-    //alert('open');
-    var oDate = new Date();
-    oDate.setYear(oDate.getFullYear()+1);
-    var sCookie = encodeURIComponent('saa') + '=' + encodeURIComponent('dddd') + ';expires=' + oDate.toGMTString() + ';path=localhost';
-    document.cookie= sCookie;
-    cookie.set('key', 'value');
+function SetEvents(){
+    $('#ClosePopupSetup').click(Cls);
+}
+
+function Cls(){
+    $('#popupbox').fadeOut();
+}
+
+function OpenTagPopUp(e, data) {
+    $('#popupbox').show();
+    //cookie.get('tags');
+    //cookie.set('tags', 'tg');
 }
 
 function ReadFile() {
@@ -41,7 +47,7 @@ function LoadTreeView(json) {
             "themes": { "stripes": true },
         }
     });
-    
+
 }
 
 function JsonFormat(json) {

@@ -93,3 +93,54 @@ p{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.popup-window{
+    display: none;
+    overflow-y: auto;
+    background: rgba(181, 212, 73, .5 );
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    padding: 10px;
+    z-index: 1060;
+    position: fixed;
+    left: 0;
+    right: 0;
+}
+
+.popup-close{
+    float: right;
+    margin-top: -22px;
+    margin-right: -13px;
+    text-decoration: none;
+
+}
+
+.PopUpButton{
+    background-color: #b5d449;
+    padding: 8px 26px 8px 26px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #b5d449;
+    cursor: pointer;
+    margin-top: 7px;
+}
+
+.popup-processing {
+    background-color: #fff;
+    border: 5px solid #b5d449;
+    border-radius: 8px;
+    padding: 36px 29px 29px 20px;
+    width: 391px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 18;
+    position: relative;
+    text-align: center;
+}
+
+.clspopup{
+    cursor: pointer; font-weight: bold;
+}
