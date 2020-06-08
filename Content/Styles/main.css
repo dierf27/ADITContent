@@ -86,3 +86,10 @@ p{
     font-weight: 700;
     font-size: 23px;
 }
+
+.jstree-anchor{
+    width: 1000px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

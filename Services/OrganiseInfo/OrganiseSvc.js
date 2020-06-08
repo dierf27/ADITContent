@@ -10,6 +10,11 @@ $(document).ready(function () {
 
 function OpenTagPopUp(e,data) {
     //alert('open');
+    var oDate = new Date();
+    oDate.setYear(oDate.getFullYear()+1);
+    var sCookie = encodeURIComponent('saa') + '=' + encodeURIComponent('dddd') + ';expires=' + oDate.toGMTString() + ';path=localhost';
+    document.cookie= sCookie;
+    cookie.set('key', 'value');
 }
 
 function ReadFile() {
