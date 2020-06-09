@@ -144,3 +144,20 @@ p{
 .clspopup{
     cursor: pointer; font-weight: bold;
 }
+
+.input-tag{
+    width: 150px;
+}
+
+.full-width{
+    width: 100%;
+}
+
+.btn-ctibutton{
+    background-color: #b5d449;
+    padding: 8px 26px 8px 26px;
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #b5d449;
+    cursor: pointer;
+}

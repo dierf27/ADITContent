@@ -7,20 +7,24 @@ $(document).ready(function () {
     $('#trVw').on("changed.jstree", function (e, data) {
         OpenTagPopUp(e, data);
     });
+    LoadTags();
 });
 
 function SetEvents(){
     $('#ClosePopupSetup').click(Cls);
+    $('#AddTag').click(AddTg);
 }
 
 function Cls(){
     $('#popupbox').fadeOut();
 }
 
+function AddTg(){
+    AddTgItem($('#tagname').val());
+}
+
 function OpenTagPopUp(e, data) {
-    $('#popupbox').show();
-    //cookie.get('tags');
-    //cookie.set('tags', 'tg');
+    $('#popupbox').show();    
 }
 
 function ReadFile() {
