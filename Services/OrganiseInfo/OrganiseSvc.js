@@ -13,6 +13,11 @@ $(document).ready(function () {
 function SetEvents(){
     $('#ClosePopupSetup').click(Cls);
     $('#AddTag').click(AddTg);
+    $('#tagname').on('keydown', function(e) {
+        if (e.which == 13) {
+            AddTg();
+        }
+    });
 }
 
 function Cls(){

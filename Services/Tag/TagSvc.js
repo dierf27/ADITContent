@@ -1,10 +1,10 @@
-function LoadTags(){
+function LoadTags() {
     var tg = cookie.get('tags');
     var LstTags = [];
     if (tg != null) {
         LstTags = JSON.parse(tg);
         UpdateTags(LstTags);
-    }    
+    }
 }
 
 function AddTgItem(tagName) {
@@ -41,20 +41,36 @@ function UpdateTags(lstTgs) {
         var SpanItem = document.createElement("span");
 
         NewItem.className = 'alert alert-warning alert-dismissible fade show';
-        NewItem.innerHTML =' <strong>'+lstTgs[i]+'</strong>';
+        NewItem.innerHTML = ' <strong>' + lstTgs[i] + '</strong>';
         NewItem.setAttribute("role", "alert");
         BtnItem.className = 'close';
-        BtnItem.setAttribute("data-dismiss", "alert");
-        BtnItem.setAttribute("aria-label", "close");
+        BtnItem.id = "tag_" + lstTgs[i];
+        BtnItem.setAttribute( "onClick", "RemoveTag('"+lstTgs[i]+"');" );
         SpanItem.setAttribute('aria-hidden', 'true');
         SpanItem.innerHTML = '&times;';
         BtnItem.appendChild(SpanItem);
         NewItem.appendChild(BtnItem);
         $('#TgsLst').append(NewItem);
     }
-
-
 }
+
+function RemoveTag(tagName){    
+    var tg = cookie.get('tags');
+    var LstTags = [];
+    if (tg != null) {
+        LstTags = JSON.parse(tg);
+        for(var i =0; i < LstTags.length; i++)
+        {
+            if(LstTags[i] === tagName)
+            {
+                var t= LstTags.splice(i,1);
+            }
+        }
+        cookie.set('tags', JSON.stringify(LstTags));
+        UpdateTags(LstTags);
+    }
+}
+
 function ShowError(errorMsg) {
     Swal.fire({
         icon: 'error',

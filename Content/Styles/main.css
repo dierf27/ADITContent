@@ -127,6 +127,34 @@ p{
     margin-top: 7px;
 }
 
+.close >span{
+    font-size: 20px;
+    vertical-align: top;
+    color: #fff !important;
+}
+
+.alert-warning{
+    background-color: #252525 !important;
+    color: #fff !important;
+}
+
+.alert{
+    padding-top: 10px  !important;
+    padding-bottom: 10px  !important;
+    padding-left:  14px !important;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+}
+
+.nopadding{
+    padding:0px;
+}
+
+.alert-warning > strong{
+    color: #fff !important;
+}
+
+
 .popup-processing {
     background-color: #fff;
     border: 5px solid #b5d449;
@@ -156,6 +184,19 @@ p{
 .btn-ctibutton{
     background-color: #b5d449;
     padding: 8px 26px 8px 26px;
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #b5d449;
+    cursor: pointer;
+}
+
+.jstree-anchor{
+    width: 780px;
+}
+.btn-ctibuttontg 
+{
+    background-color: #b5d449;
+    padding: 8px 6px 8px 6px;
     font-size: 14px;
     color: #fff;
     border: 1px solid #b5d449;
