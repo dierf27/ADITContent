@@ -19,7 +19,6 @@
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
     <script src="../../Content/Script/jstree.min.js"></script>
     <script src="../../Content/Script/cookie.js"></script>
     <script src="../../Services/OrganiseInfo/OrganiseSvc.js"></script>
@@ -67,11 +66,27 @@
             </div>
         </div>
         <br />
-        <div>
-            <p class="rwtxt">Tag Tree View
-            </p>
-            <div class="row">
-                <div id="tagTreeView" class="demo"></div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="rwtxt">Tag Tree View
+                </p>
+                <div class="row">
+                    <div id="tagTreeView" class="demo"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <p>Export Tag tree</p>
+                </div>
+                <div class="row rowspace">
+                    <button id="export" class="btn-ctibuttontg float-left">Export</button>
+                </div>
+                <br/>
+                <div class="row">
+                    <textarea id="ExportTag" type="text" class="export-area"></textarea>
+                </div>
             </div>
         </div>
     </div>

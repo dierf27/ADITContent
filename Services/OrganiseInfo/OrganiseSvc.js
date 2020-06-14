@@ -16,11 +16,38 @@ function SetEvents() {
     $('#ClosePopupSetup').click(Cls);
     $('#AddTag').click(AddTg);
     $('#btn-savetag').click(AttachUnitTag);
+    $('#export').click(ExportTagTree);
     $('#tagname').on('keydown', function (e) {
         if (e.which == 13) {
             AddTg();
         }
     });
+}
+
+function ExportTagTree() {
+    var tgxunt = cookie.get('tagsXunit');
+    if (tgxunt != null) {
+        LstTgsXUnit = JSON.parse(tgxunt);
+        $('#ExportTag').val(JSON.stringify(LstTgsXUnit, null, "\t"));
+        try {
+            var input = document.getElementById("ExportTag");
+            input.select();
+            input.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+        } catch (err) {
+        }
+        Swal.fire({
+            icon: 'success',
+            title: 'Data successfully exported and copied to clipboard.'
+        });
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No data is available to export. Please add some tags and attach to units.'
+        });
+    }
 }
 
 function findTg(n) {
