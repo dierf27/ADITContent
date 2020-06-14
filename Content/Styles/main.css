@@ -102,7 +102,7 @@ p{
     top: 0;
     bottom: 0;
     padding: 10px;
-    z-index: 1060;
+    z-index: 1;
     position: fixed;
     left: 0;
     right: 0;
@@ -193,6 +193,24 @@ p{
 .jstree-anchor{
     width: 780px;
 }
+
+.taglist{
+    z-index: 2;
+}
+
+.rowspace{
+    margin-bottom: 5px;
+}
+
+.select2-container{
+ width: 100% !important;
+}
+
+.centerctrl
+{
+    margin: 0 auto;
+}
+
 .btn-ctibuttontg 
 {
     background-color: #b5d449;

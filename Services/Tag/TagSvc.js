@@ -1,10 +1,20 @@
 function LoadTags() {
+    UpdtTagTree();
     var tg = cookie.get('tags');
     var LstTags = [];
     if (tg != null) {
         LstTags = JSON.parse(tg);
         UpdateTags(LstTags);
     }
+}
+
+function UpdtTagTree() {
+    var tgxunt = cookie.get('tagsXunit');
+    var LstTgsXUnit = [];
+    if (tgxunt != null) {
+        LstTgsXUnit = JSON.parse(tgxunt);
+    }
+    UpdateTagTree(LstTgsXUnit);
 }
 
 function AddTgItem(tagName) {
@@ -45,25 +55,32 @@ function UpdateTags(lstTgs) {
         NewItem.setAttribute("role", "alert");
         BtnItem.className = 'close';
         BtnItem.id = "tag_" + lstTgs[i];
-        BtnItem.setAttribute( "onClick", "RemoveTag('"+lstTgs[i]+"');" );
+        BtnItem.setAttribute("onClick", "RemoveTag('" + lstTgs[i] + "');");
         SpanItem.setAttribute('aria-hidden', 'true');
         SpanItem.innerHTML = '&times;';
         BtnItem.appendChild(SpanItem);
         NewItem.appendChild(BtnItem);
         $('#TgsLst').append(NewItem);
     }
+    UpdateTagList(lstTgs);
 }
 
-function RemoveTag(tagName){    
+function UpdateTagList(lstTgs) {
+    var ddl = $('#slcTags');
+    ddl.empty();
+    $(lstTgs).each(function (index, element) {
+        ddl.append('<option value=' + element + '>' + element + '</option>');
+    });
+}
+
+function RemoveTag(tagName) {
     var tg = cookie.get('tags');
     var LstTags = [];
     if (tg != null) {
         LstTags = JSON.parse(tg);
-        for(var i =0; i < LstTags.length; i++)
-        {
-            if(LstTags[i] === tagName)
-            {
-                var t= LstTags.splice(i,1);
+        for (var i = 0; i < LstTags.length; i++) {
+            if (LstTags[i] === tagName) {
+                var t = LstTags.splice(i, 1);
             }
         }
         cookie.set('tags', JSON.stringify(LstTags));

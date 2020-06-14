@@ -1,5 +1,6 @@
 /*Global Variables*/
 var jsChildren2 = [];
+var compareTxt = '';
 
 $(document).ready(function () {
     SetEvents();
@@ -10,26 +11,109 @@ $(document).ready(function () {
     LoadTags();
 });
 
-function SetEvents(){
+function SetEvents() {
+    $('#slcTags').select2();
     $('#ClosePopupSetup').click(Cls);
     $('#AddTag').click(AddTg);
-    $('#tagname').on('keydown', function(e) {
+    $('#btn-savetag').click(AttachUnitTag);
+    $('#tagname').on('keydown', function (e) {
         if (e.which == 13) {
             AddTg();
         }
     });
 }
 
-function Cls(){
+function findTg(n) {
+    if (n.text.toLowerCase() === compareTxt.toLowerCase()) {
+        var res = n.children.find(x => x.toLowerCase() === $('#nodename').val().toLowerCase());
+        if (res == null) {
+            n.children.push($('#nodename').val());
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Unit already exists'
+            });
+        }
+        return n;
+    }
+    else {
+        return null;
+    }
+}
+
+function AttachUnitTag() {
+    var tagsSelected = $('#slcTags').select2('data');
+    if (tagsSelected.length > 0) {
+        var tgxunt = cookie.get('tagsXunit');
+        var LstTgsXUnit = [];
+        var unititems = [];
+        if (tgxunt != null) {
+            LstTgsXUnit = JSON.parse(tgxunt);
+        }
+        $(tagsSelected).each(function (idx, ele) {
+            compareTxt = ele.text;
+            var item = LstTgsXUnit.find(findTg);
+            if (item == null) {
+                var jsChildren = [];
+                jsChildren.push($('#nodename').val());
+                item = {
+                    "text": ele.text,
+                    "state": { "opened": true },
+                    "children": jsChildren
+                };
+                LstTgsXUnit.push(item);
+            }
+        });
+        cookie.set('tagsXunit', JSON.stringify(LstTgsXUnit));
+        $('#slcTags').val(null).trigger('change');
+        Cls();
+        UpdateTagTree(LstTgsXUnit);
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Please select at least one tag'
+        });
+    }
+}
+
+function UpdateTagTree(LstTgsXUnit) {
+    $("#tagTreeView").jstree("destroy");
+    $('#tagTreeView').jstree({
+        'core': {
+            'data': LstTgsXUnit,
+            "check_callback": true,
+            "themes": { "stripes": true },
+        }
+    });
+}
+
+function ValidateExistingTag(LstTgsXUnit) {
+    var result = true;
+    $(LstTgsXUnit).each(function (idx, ele) {
+        if (ele.text.toLowerCase() == $('#nodename').val().toLowerCase()) {
+            result = false;
+        }
+    });
+    return result;
+}
+
+function Cls() {
+    $('#nodename').val('');
     $('#popupbox').fadeOut();
 }
 
-function AddTg(){
+function AddTg() {
     AddTgItem($('#tagname').val());
 }
 
 function OpenTagPopUp(e, data) {
-    $('#popupbox').show();    
+    $('#nodeSelected').html('Please select tag/tags for: <strong>' + data.node.text + '</strong>');
+    $('#nodename').val(data.node.text);
+    $('#popupbox').show();
 }
 
 function ReadFile() {
@@ -56,7 +140,6 @@ function LoadTreeView(json) {
             "themes": { "stripes": true },
         }
     });
-
 }
 
 function JsonFormat(json) {
