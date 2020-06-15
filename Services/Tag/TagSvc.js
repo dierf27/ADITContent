@@ -1,48 +1,32 @@
-/*global  $,cookie,Swal,addTgItem,loadTags,console,updateTagList,showError*/
+/*global  $,cookie,Swal,addTgItem,loadTags,console,updateTagList,showError,updateTagTree*/
 
-function loadTags() {
-    updtTagTree();
-    var tg = cookie.get("tags");
-    var LstTags = [];
-    if (tg != null) {
-        LstTags = JSON.parse(tg);
-        updateTags(LstTags);
-    }
+function updateTagList(lstTgs) {
+    var ddl = $("#slcTags");
+    ddl.empty();
+    $(lstTgs).each(function (index, element) {
+        ddl.append("<option value=" + element + ">" + element + "</option>");
+    });
 }
 
-function updtTagTree() {
-    var tgxunt = cookie.get("tagsXunit");
-    var LstTgsXUnit = [];
-    if (tgxunt != null) {
-        LstTgsXUnit = JSON.parse(tgxunt);
+function validateTagExists(LstTags, tagName) {
+    if (LstTags.length == 0) {
+        return true;
+    } 
+    var i = 0;
+    for (i = 0; i < LstTags.length; i = i + 1) {
+        if (LstTags[i].toLowerCase() === tagName.toLowerCase()) {
+            return false;
+        }
     }
-    updateTagTree(LstTgsXUnit);
+    return true;
 }
 
-function addTgItem(tagName) {
-    var tg = cookie.get("tags");
-    var LstTags = [];
-    if (tg != null) {
-        LstTags = JSON.parse(tg);
-    }
-    if (validateTagExists(LstTags, tagName)) {
-        if (tagName == "" || tagName == "") {
-            showError("Please type a tag name");
-        }
-        else {
-            LstTags.push(tagName);
-            cookie.set("tags", JSON.stringify(LstTags));
-            updateTags(LstTags);
-            $("#tagname").val("");
-            Swal.fire({
-                icon: "success",
-                title: "Tag Added"
-            });
-        }
-    }
-    else {
-        showError("Tag already exists");
-    }
+function showError(errorMsg) {
+    Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: errorMsg
+    });
 }
 
 function updateTags(lstTgs) {
@@ -71,13 +55,55 @@ function updateTags(lstTgs) {
     updateTagList(lstTgs);
 }
 
-function updateTagList(lstTgs) {
-    var ddl = $("#slcTags");
-    ddl.empty();
-    $(lstTgs).each(function (index, element) {
-        ddl.append("<option value=" + element + ">" + element + "</option>");
-    });
+function updtTagTree() {
+    var tgxunt = cookie.get("tagsXunit");
+    var LstTgsXUnit = [];
+    if (tgxunt != null) {
+        LstTgsXUnit = JSON.parse(tgxunt);
+    }
+    updateTagTree(LstTgsXUnit);
 }
+
+function loadTags() {
+    updtTagTree();
+    var tg = cookie.get("tags");
+    var LstTags = [];
+    if (tg != null) {
+        LstTags = JSON.parse(tg);
+        updateTags(LstTags);
+    }
+}
+
+
+
+function addTgItem(tagName) {
+    var tg = cookie.get("tags");
+    var LstTags = [];
+    if (tg != null) {
+        LstTags = JSON.parse(tg);
+    }
+    if (validateTagExists(LstTags, tagName)) {
+        if (tagName == "" || tagName == "") {
+            showError("Please type a tag name");
+        }
+        else {
+            LstTags.push(tagName);
+            cookie.set("tags", JSON.stringify(LstTags));
+            updateTags(LstTags);
+            $("#tagname").val("");
+            Swal.fire({
+                icon: "success",
+                title: "Tag Added"
+            });
+        }
+    }
+    else {
+        showError("Tag already exists");
+    }
+}
+
+
+
 
 function removeTag(tagName) {
     var tg = cookie.get("tags");
@@ -85,9 +111,10 @@ function removeTag(tagName) {
     if (tg != null) {
         LstTags = JSON.parse(tg);
         var i = 0;
+        var t;
         for (i = 0; i < LstTags.length; i = i + 1) {
             if (LstTags[i] === tagName) {
-                var t = LstTags.splice(i, 1);
+                t = LstTags.splice(i, 1);
             }
         }
         cookie.set("tags", JSON.stringify(LstTags));
@@ -95,23 +122,5 @@ function removeTag(tagName) {
     }
 }
 
-function showError(errorMsg) {
-    Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: errorMsg
-    });
-}
 
-function validateTagExists(LstTags, tagName) {
-    if (LstTags.length == 0) {
-        return true;
-    } 
-    var i = 0;
-    for (i = 0; i < LstTags.length; i = i + 1) {
-        if (LstTags[i].toLowerCase() === tagName.toLowerCase()) {
-            return false;
-        }
-    }
-    return true;
-}
+
