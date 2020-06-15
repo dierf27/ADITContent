@@ -1,107 +1,115 @@
-function LoadTags() {
-    UpdtTagTree();
-    var tg = cookie.get('tags');
+/*global  $,cookie,Swal,addTgItem,loadTags,console,updateTagList,showError*/
+
+function loadTags() {
+    updtTagTree();
+    var tg = cookie.get("tags");
     var LstTags = [];
     if (tg != null) {
         LstTags = JSON.parse(tg);
-        UpdateTags(LstTags);
+        updateTags(LstTags);
     }
 }
 
-function UpdtTagTree() {
-    var tgxunt = cookie.get('tagsXunit');
+function updtTagTree() {
+    var tgxunt = cookie.get("tagsXunit");
     var LstTgsXUnit = [];
     if (tgxunt != null) {
         LstTgsXUnit = JSON.parse(tgxunt);
     }
-    UpdateTagTree(LstTgsXUnit);
+    updateTagTree(LstTgsXUnit);
 }
 
-function AddTgItem(tagName) {
-    var tg = cookie.get('tags');
+function addTgItem(tagName) {
+    var tg = cookie.get("tags");
     var LstTags = [];
     if (tg != null) {
         LstTags = JSON.parse(tg);
     }
-    if (ValidateTagExists(LstTags, tagName)) {
-        if (tagName == '' || tagName == '') {
-            ShowError('Please type a tag name');
+    if (validateTagExists(LstTags, tagName)) {
+        if (tagName == "" || tagName == "") {
+            showError("Please type a tag name");
         }
         else {
             LstTags.push(tagName);
-            cookie.set('tags', JSON.stringify(LstTags));
-            UpdateTags(LstTags);
-            $('#tagname').val('');
+            cookie.set("tags", JSON.stringify(LstTags));
+            updateTags(LstTags);
+            $("#tagname").val("");
             Swal.fire({
-                icon: 'success',
-                title: 'Tag Added'
+                icon: "success",
+                title: "Tag Added"
             });
         }
     }
     else {
-        ShowError('Tag already exists');
+        showError("Tag already exists");
     }
 }
 
-function UpdateTags(lstTgs) {
-    $('#TgsLst').empty();
-    for (var i = 0; i < lstTgs.length; i++) {
-        var NewItem = document.createElement("div");
-        var BtnItem = document.createElement("button");
-        var SpanItem = document.createElement("span");
+function updateTags(lstTgs) {
+    $("#TgsLst").empty();
+    var i = 0;
+    var NewItem = document.createElement("div");
+    var BtnItem = document.createElement("button");
+    var SpanItem = document.createElement("span");
+    for (i = 0; i < lstTgs.length; i = i + 1) {
+        NewItem = document.createElement("div");
+        BtnItem = document.createElement("button");
+        SpanItem = document.createElement("span");
 
-        NewItem.className = 'alert alert-warning alert-dismissible fade show';
-        NewItem.innerHTML = ' <strong>' + lstTgs[i] + '</strong>';
+        NewItem.className = "alert alert-warning alert-dismissible fade show";
+        NewItem.innerHTML = " <strong>" + lstTgs[i] + "</strong>";
         NewItem.setAttribute("role", "alert");
-        BtnItem.className = 'close';
+        BtnItem.className = "close";
         BtnItem.id = "tag_" + lstTgs[i];
         BtnItem.setAttribute("onClick", "RemoveTag('" + lstTgs[i] + "');");
-        SpanItem.setAttribute('aria-hidden', 'true');
-        SpanItem.innerHTML = '&times;';
+        SpanItem.setAttribute("aria-hidden", "true");
+        SpanItem.innerHTML = "&times;";
         BtnItem.appendChild(SpanItem);
         NewItem.appendChild(BtnItem);
-        $('#TgsLst').append(NewItem);
+        $("#TgsLst").append(NewItem);
     }
-    UpdateTagList(lstTgs);
+    updateTagList(lstTgs);
 }
 
-function UpdateTagList(lstTgs) {
-    var ddl = $('#slcTags');
+function updateTagList(lstTgs) {
+    var ddl = $("#slcTags");
     ddl.empty();
     $(lstTgs).each(function (index, element) {
-        ddl.append('<option value=' + element + '>' + element + '</option>');
+        ddl.append("<option value=" + element + ">" + element + "</option>");
     });
 }
 
-function RemoveTag(tagName) {
-    var tg = cookie.get('tags');
+function removeTag(tagName) {
+    var tg = cookie.get("tags");
     var LstTags = [];
     if (tg != null) {
         LstTags = JSON.parse(tg);
-        for (var i = 0; i < LstTags.length; i++) {
+        var i = 0;
+        for (i = 0; i < LstTags.length; i = i + 1) {
             if (LstTags[i] === tagName) {
                 var t = LstTags.splice(i, 1);
             }
         }
-        cookie.set('tags', JSON.stringify(LstTags));
-        UpdateTags(LstTags);
+        cookie.set("tags", JSON.stringify(LstTags));
+        updateTags(LstTags);
     }
 }
 
-function ShowError(errorMsg) {
+function showError(errorMsg) {
     Swal.fire({
-        icon: 'error',
-        title: 'Error',
+        icon: "error",
+        title: "Error",
         text: errorMsg
     });
 }
 
-function ValidateTagExists(LstTags, tagName) {
+function validateTagExists(LstTags, tagName) {
     if (LstTags.length == 0) {
         return true;
-    }
-    for (var i = 0; i < LstTags.length; i++) {
-        if (LstTags[i].toLowerCase() == tagName.toLowerCase()) {
+    } 
+    var i = 0;
+    for (i = 0; i < LstTags.length; i = i + 1) {
+        if (LstTags[i].toLowerCase() === tagName.toLowerCase()) {
             return false;
         }
     }
