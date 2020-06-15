@@ -74,8 +74,6 @@ function loadTags() {
     }
 }
 
-
-
 function addTgItem(tagName) {
     var tg = cookie.get("tags");
     var LstTags = [];
@@ -101,9 +99,6 @@ function addTgItem(tagName) {
         showError("Tag already exists");
     }
 }
-
-
-
 
 function removeTag(tagName) {
     var tg = cookie.get("tags");

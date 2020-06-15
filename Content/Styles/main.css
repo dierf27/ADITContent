@@ -13,6 +13,10 @@ p{
     color: #666;
     font-size: 16px;
 }
+
+.btn-ctibuttontg:disabled{
+background-color:#d6e6a2;
+}
 .green-canterbury{
     color: #b5d449;
 }

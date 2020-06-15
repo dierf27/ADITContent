@@ -12,6 +12,7 @@ function unuss(p) {
 }
 
 function ExportTagTree() {
+    $('#loadJson').prop("disabled", false);
     var tgxunt = cookie.get("tagsXunit");
     if (tgxunt != null) {
         var LstTgsXUnit = JSON.parse(tgxunt);
@@ -88,7 +89,10 @@ function AttachUnitTag() {
         $(tagsSelected).each(function (idx, ele) {
             unuss(idx);
             compareTxt = ele.text;
-            var item = LstTgsXUnit.find(findTg);
+            var item = null;
+            if (LstTgsXUnit.length > 0) {
+                item = LstTgsXUnit[0].children.find(findTg);
+            }
             if (item == null) {
                 var jsChildren = [];
                 jsChildren.push($("#nodename").val());
@@ -97,7 +101,19 @@ function AttachUnitTag() {
                     "state": { "opened": true },
                     "children": jsChildren
                 };
-                LstTgsXUnit.push(item);
+                if (LstTgsXUnit.length == 0) {
+                    var jsChildrenRoot = [];
+                    jsChildrenRoot.push(item);
+                    itemRoot = {
+                        "text": "Advanced Diploma of Information Technology (ICT60115)",
+                        "state": { "opened": true },
+                        "children": jsChildrenRoot
+                    };
+                    LstTgsXUnit.push(itemRoot);
+                }
+                else {
+                    LstTgsXUnit[0].children.push(item);
+                }
             }
         });
         cookie.set("tagsXunit", JSON.stringify(LstTgsXUnit));
@@ -113,8 +129,6 @@ function AttachUnitTag() {
         });
     }
 }
-
-
 
 function ValidateExistingTag(LstTgsXUnit) {
     var result = true;
@@ -139,7 +153,6 @@ function openTagPopUp(e, data) {
 }
 
 function createNode(ele, item) {
-
     if (ele[item] != null) {
         $(ele[item].pc).each(function (id, el) {
             unuss(id);
@@ -192,14 +205,24 @@ function jsonFormat(json) {
     return jsonFrm;
 }
 
-function loadTreeView(json) {
-    var jsonFrm = jsonFormat(json);
+function loadTreeView(json, skip) {
+    var jsonFrm;
+    if (skip == false) {
+        jsonFrm = jsonFormat(json);
+    }
+    else {
+        jsonFrm = json;
+    }
+    $("#trVw").jstree("destroy");
     $("#trVw").jstree({
         "core": {
             "data": jsonFrm,
             "check_callback": true,
             "themes": { "stripes": true }
         }
+    });
+    $("#trVw").on("changed.jstree", function (e, data) {
+        openTagPopUp(e, data);
     });
 }
 
@@ -211,11 +234,44 @@ function readFile() {
             if (rawFile.status == 200 || rawFile.status == 0) {
                 var allText = rawFile.responseText;
                 $("#JsonContent").val(allText);
-                loadTreeView(allText);
+                loadTreeView(allText, false);
             }
         }
     };
     rawFile.send(null);
+}
+
+function ldJson() {
+    var expt = $("#JsonContent").val();
+    if (expt != '') {
+        try {
+            var jsond = JSON.parse(expt);
+        }
+        catch{
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Incorrect json input detected"
+            });
+        }
+        var json = JSON.parse(expt);
+        if (expt.indexOf("pc") > -1 && expt.indexOf("1.1")) {
+            loadTreeView(expt, false);
+        }
+        else {
+            loadTreeView(json, true);
+        }
+        $('#ExportTag').val('');
+        cookie.remove("tagsXunit");
+        $("#tagTreeView").jstree("destroy");
+    }
+    else {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Please enter a JSON text"
+        });
+    }
 }
 
 function setEvents() {
@@ -224,18 +280,18 @@ function setEvents() {
     $("#AddTag").click(addTg);
     $("#btn-savetag").click(AttachUnitTag);
     $("#export").click(ExportTagTree);
+    $("#loadJson").click(ldJson);
+
     $("#tagname").on("keydown", function (e) {
         if (e.which == 13) {
             addTg();
         }
     });
+    $('#ExportTag').val('');
 }
 
 $(document).ready(function () {
     setEvents();
     readFile();
-    $("#trVw").on("changed.jstree", function (e, data) {
-        openTagPopUp(e, data);
-    });
     loadTags();
 });
