@@ -11,11 +11,20 @@ function unuss(p) {
     console.log(p);
 }
 
+function getMainTree() {
+    var json = $("#JsonContent").val();
+    var jsonFrm = jsonFormat(json);
+    return jsonFrm;
+}
+
 function ExportTagTree() {
     $('#loadJson').prop("disabled", false);
     var tgxunt = cookie.get("tagsXunit");
+    var jsonFrm = getMainTree();
     if (tgxunt != null) {
         var LstTgsXUnit = JSON.parse(tgxunt);
+        jsonFrm.children.push(LstTgsXUnit[0]);
+        LstTgsXUnit = jsonFrm;
         $("#ExportTag").val(JSON.stringify(LstTgsXUnit, null, "\t"));
         try {
             var input = document.getElementById("ExportTag");
@@ -105,7 +114,7 @@ function AttachUnitTag() {
                     var jsChildrenRoot = [];
                     jsChildrenRoot.push(item);
                     itemRoot = {
-                        "text": "Advanced Diploma of Information Technology (ICT60115)",
+                        "text": "Tag Tree",
                         "state": { "opened": true },
                         "children": jsChildrenRoot
                     };
